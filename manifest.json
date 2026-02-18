@@ -1,0 +1,22 @@
+{
+  "name": "急救與家居護理學習平台",
+  "short_name": "急救學習",
+  "description": "香港急救、去顫法及家居護理學習平台",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#e63946",
+  "lang": "zh-HK",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192x192.png?text=FAR",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512.png?text=FAR",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
