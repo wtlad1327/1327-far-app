@@ -1,0 +1,245 @@
+/* ===== 登入畫面 ===== */
+.login-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e63946, #c1121f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.login-card {
+  background: white;
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.login-logo { font-size: 3rem; margin-bottom: 0.5rem; }
+.login-card h1 { font-size: 1.4rem; margin-bottom: 0.3rem; }
+.login-subtitle { color: #888; margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+.form-group {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 0.3rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus { border-color: #e63946; }
+
+.btn-login {
+  width: 100%;
+  background: #e63946;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.divider {
+  color: #aaa;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+}
+
+.btn-google {
+  width: 100%;
+  background: white;
+  border: 1.5px solid #ddd;
+  padding: 0.7rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.error-msg {
+  background: #ffeaea;
+  color: #c1121f;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.login-note {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: #aaa;
+  line-height: 1.6;
+}
+
+/* ===== 主介面 ===== */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name { color: white; font-size: 0.9rem; }
+
+.btn-logout {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+/* ===== 進度儀表板 ===== */
+.dashboard {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.dashboard h2 { color: #e63946; margin-bottom: 1.5rem; }
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.progress-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  text-align: center;
+}
+
+.progress-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.progress-card h3 { font-size: 0.95rem; margin-bottom: 0.8rem; color: #555; }
+
+.progress-bar {
+  background: #f0f0f0;
+  border-radius: 10px;
+  height: 8px;
+  margin-bottom: 0.4rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: #e63946;
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+
+.progress-card span { font-size: 0.85rem; color: #888; }
+
+/* ===== 閃卡動作按鈕 ===== */
+.card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-known {
+  background: #d4edda;
+  color: #155724;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-review {
+  background: #fff3cd;
+  color: #856404;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* ===== 測驗 ===== */
+.quiz-section {
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.quiz-section h2 { color: #e63946; margin-bottom: 1.5rem; }
+
+.quiz-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+#quiz-question {
+  font-size: 1.05rem;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+
+.quiz-options { display: flex; flex-direction: column; gap: 0.7rem; }
+
+.quiz-option {
+  background: #f8f9fa;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.quiz-option:hover:not(:disabled) { background: #f0f0f0; }
+.quiz-option.correct { background: #d4edda; border-color: #28a745; }
+.quiz-option.wrong { background: #ffeaea; border-color: #e63946; }
+
+.quiz-result {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.correct-result { background: #d4edda; color: #155724; }
+.wrong-result { background: #ffeaea; color: #c1121f; }
+
+.quiz-score {
+  margin-top: 1rem;
+  text-align: right;
+  color: #888;
+  font-size: 0.9rem;
+}
