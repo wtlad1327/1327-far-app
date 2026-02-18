@@ -175,7 +175,7 @@
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     // 管理員 Email 白名單（換成你自己的 Email）
-    const ADMIN_EMAILS = ['your-admin@email.com'];
+    const ADMIN_EMAILS = ['wtlad1327@gmail.com','waterlooa71@gmail.com'];
 
     onAuthStateChanged(auth, (user) => {
       if (user && ADMIN_EMAILS.includes(user.email)) {
