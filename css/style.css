@@ -1,1 +1,285 @@
+/* ===== 基礎設定 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Helvetica Neue", sans-serif;
+  color: #333;
+  background: #f8f9fa;
+}
+
+/* ===== 導航欄 ===== */
+.navbar {
+  background: #e63946;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.nav-brand { font-size: 1.3rem; font-weight: bold; }
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.btn-internal {
+  background: white;
+  color: #e63946 !important;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* ===== 英雄區塊 ===== */
+.hero {
+  background: linear-gradient(135deg, #e63946, #c1121f);
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.hero h1 { font-size: 2rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9; }
+
+.btn-primary {
+  background: white;
+  color: #e63946;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  display: inline-block;
+}
+
+/* ===== 模組卡片 ===== */
+.modules-section {
+  padding: 3rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.modules-section h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  color: #e63946;
+}
+
+.modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.module-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.module-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.module-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #333; }
+.module-card p { font-size: 0.85rem; color: #666; }
+
+/* ===== 閃卡 ===== */
+.flashcard-section {
+  background: white;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.flashcard-section h2 {
+  font-size: 1.6rem;
+  color: #e63946;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle { color: #888; margin-bottom: 2rem; }
+
+.flashcard-container {
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.flashcard {
+  width: 340px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+  cursor: pointer;
+}
+
+.flashcard.flipped { transform: rotateY(180deg); }
+
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.flashcard-front {
+  background: linear-gradient(135deg, #e63946, #c1121f);
+  color: white;
+}
+
+.flashcard-back {
+  background: white;
+  color: #333;
+  border: 2px solid #e63946;
+  transform: rotateY(180deg);
+}
+
+.card-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.flashcard-front h3 { font-size: 1.4rem; }
+.flashcard-back p { font-size: 0.95rem; line-height: 1.6; text-align: center; }
+
+.flashcard-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover { background: #e0e0e0; }
+
+/* ===== 模組彈出視窗 ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #f0f0f0;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.system-list, .steps-list { margin-top: 1rem; }
+
+.system-item {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.system-item h3 { margin-bottom: 0.3rem; color: #e63946; }
+.system-item p { font-size: 0.9rem; line-height: 1.6; color: #555; }
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.step-number {
+  background: #e63946;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.note {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #666;
+  background: #fff3cd;
+  padding: 0.8rem;
+  border-radius: 8px;
+}
+
+.note a { color: #e63946; }
+
+/* ===== Footer ===== */
+footer {
+  background: #333;
+  color: #aaa;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.85rem;
+}
+
+/* ===== 響應式 ===== */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.5rem; }
+  .nav-links a:not(.btn-internal) { display: none; }
+  .flashcard { width: 290px; height: 180px; }
+}
 
