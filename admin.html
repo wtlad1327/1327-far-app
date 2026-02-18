@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>管理後台 – 急救學習平台</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/internal.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+</head>
+<body>
+
+  <!-- 管理員登入 -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="login-logo">🛠️</div>
+      <h1>管理員後台</h1>
+      <p class="login-subtitle">只限授權管理員登入</p>
+      <div id="login-error" class="error-msg" style="display:none"></div>
+      <div class="form-group">
+        <label>電郵地址</label>
+        <input type="email" id="email-input" placeholder="admin@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>密碼</label>
+        <input type="password" id="password-input" placeholder="輸入密碼"/>
+      </div>
+      <button class="btn-login" onclick="adminLogin()">登入後台</button>
+    </div>
+  </div>
+
+  <!-- 後台主介面 -->
+  <div id="admin-screen" style="display:none">
+    <nav class="navbar">
+      <div class="nav-brand">🛠️ 管理後台</div>
+      <div class="nav-right">
+        <a href="index.html" style="color:white;font-size:0.85rem">← 返回主頁</a>
+        <button onclick="adminLogout()" class="btn-logout">登出</button>
+      </div>
+    </nav>
+
+    <!-- 分頁切換 -->
+    <div class="admin-tabs">
+      <button class="tab-btn active" onclick="switchTab('users')">👥 用戶管理</button>
+      <button class="tab-btn" onclick="switchTab('cards')">📚 閃卡管理</button>
+      <button class="tab-btn" onclick="switchTab('quiz')">🧠 測驗管理</button>
+    </div>
+
+    <!-- 用戶管理 -->
+    <div id="tab-users" class="tab-content">
+      <div class="admin-section">
+        <div class="section-header">
+          <h2>用戶管理</h2>
+          <button onclick="showAddUser()" class="btn-add">+ 新增用戶</button>
+        </div>
+
+        <!-- 新增用戶表單 -->
+        <div id="add-user-form" class="add-form" style="display:none">
+          <h3>新增用戶</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>電郵地址</label>
+              <input type="email" id="new-email" placeholder="user@email.com"/>
+            </div>
+            <div class="form-group">
+              <label>臨時密碼</label>
+              <input type="password" id="new-password" placeholder="最少6位"/>
+            </div>
+          </div>
+          <button onclick="createUser()" class="btn-login" style="width:auto;padding:0.6rem 1.5rem">建立帳戶</button>
+          <button onclick="hideAddUser()" class="btn-secondary" style="margin-left:0.5rem">取消</button>
+          <div id="create-msg" style="margin-top:0.5rem;font-size:0.85rem"></div>
+        </div>
+
+        <!-- 用戶列表 -->
+        <div id="users-list" class="data-table">
+          <p style="color:#888;text-align:center;padding:2rem">載入中...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 閃卡管理 -->
+    <div id="tab-cards" class="tab-content" style="display:none">
+      <div class="admin-section">
+        <div class="section-header">
+          <h2>閃卡管理</h2>
+          <button onclick="showAddCard()" class="btn-add">+ 新增閃卡</button>
+        </div>
+
+        <div id="add-card-form" class="add-form" style="display:none">
+          <h3>新增閃卡</h3>
+          <div class="form-group">
+            <label>詞彙（正面）</label>
+            <input type="text" id="new-term" placeholder="例：心臟 Heart"/>
+          </div>
+          <div class="form-group">
+            <label>解釋（背面）</label>
+            <textarea id="new-definition" placeholder="簡單解釋詞彙意思..." rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>分類</label>
+            <select id="new-category">
+              <option value="anatomy">解剖學詞彙</option>
+              <option value="firstaid">急救</option>
+              <option value="homecare">家居護理</option>
+            </select>
+          </div>
+          <button onclick="addCard()" class="btn-login" style="width:auto;padding:0.6rem 1.5rem">新增</button>
+          <button onclick="hideAddCard()" class="btn-secondary" style="margin-left:0.5rem">取消</button>
+        </div>
+
+        <div id="cards-list" class="data-table">
+          <p style="color:#888;text-align:center;padding:2rem">載入中...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 測驗管理 -->
+    <div id="tab-quiz" class="tab-content" style="display:none">
+      <div class="admin-section">
+        <div class="section-header">
+          <h2>測驗題目管理</h2>
+          <button onclick="showAddQuiz()" class="btn-add">+ 新增題目</button>
+        </div>
+
+        <div id="add-quiz-form" class="add-form" style="display:none">
+          <h3>新增測驗題目</h3>
+          <div class="form-group">
+            <label>題目</label>
+            <textarea id="new-question" placeholder="輸入問題..." rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <label>選項A</label><input type="text" id="opt-a" placeholder="選項A"/>
+          </div>
+          <div class="form-group">
+            <label>選項B</label><input type="text" id="opt-b" placeholder="選項B"/>
+          </div>
+          <div class="form-group">
+            <label>選項C</label><input type="text" id="opt-c" placeholder="選項C"/>
+          </div>
+          <div class="form-group">
+            <label>選項D</label><input type="text" id="opt-d" placeholder="選項D"/>
+          </div>
+          <div class="form-group">
+            <label>正確答案</label>
+            <select id="correct-answer">
+              <option value="0">選項A</option>
+              <option value="1">選項B</option>
+              <option value="2">選項C</option>
+              <option value="3">選項D</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>解釋（答題後顯示）</label>
+            <textarea id="new-explanation" placeholder="解釋正確答案..." rows="2"></textarea>
+          </div>
+          <button onclick="addQuizQuestion()" class="btn-login" style="width:auto;padding:0.6rem 1.5rem">新增題目</button>
+          <button onclick="hideAddQuiz()" class="btn-secondary" style="margin-left:0.5rem">取消</button>
+        </div>
+
+        <div id="quiz-list" class="data-table">
+          <p style="color:#888;text-align:center;padding:2rem">載入中...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { auth, db } from './js/firebase-config.js';
+    import {
+      signInWithEmailAndPassword, signOut, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import {
+      collection, getDocs, addDoc, deleteDoc, doc, setDoc
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // 管理員 Email 白名單（換成你自己的 Email）
+    const ADMIN_EMAILS = ['your-admin@email.com'];
+
+    onAuthStateChanged(auth, (user) => {
+      if (user && ADMIN_EMAILS.includes(user.email)) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('admin-screen').style.display = 'block';
+        loadUsers();
+        loadCards();
+        loadQuizQuestions();
+      } else if (user) {
+        signOut(auth);
+        showError('你沒有管理員權限');
+      } else {
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('admin-screen').style.display = 'none';
+      }
+    });
+
+    // 登入登出
+    window.adminLogin = async () => {
+      try {
+        await signInWithEmailAndPassword(auth,
+          document.getElementById('email-input').value,
+          document.getElementById('password-input').value
+        );
+      } catch(e) { showError('登入失敗：電郵或密碼錯誤'); }
+    };
+
+    window.adminLogout = () => signOut(auth);
+
+    function showError(msg) {
+      const el = document.getElementById('login-error');
+      el.style.display = 'block';
+      el.textContent = msg;
+    }
+
+    // 分頁切換
+    window.switchTab = (tab) => {
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(`tab-${tab}`).style.display = 'block';
+      event.target.classList.add('active');
+    };
+
+    // ===== 用戶管理 =====
+    async function loadUsers() {
+      const snap = await getDocs(collection(db, 'users'));
+      const list = document.getElementById('users-list');
+      if (snap.empty) { list.innerHTML = '<p style="color:#888;text-align:center;padding:2rem">暫無用戶記錄</p>'; return; }
+      list.innerHTML = `
+        <table>
+          <thead><tr><th>電郵</th><th>身體系統</th><th>急救</th><th>AED</th><th>家居護理</th></tr></thead>
+          <tbody>
+            ${snap.docs.map(d => {
+              const data = d.data();
+              const p = data.progress || {};
+              return `<tr>
+                <td>${data.email || d.id}</td>
+                <td>${p.body || 0}%</td>
+                <td>${p.firstaid || 0}%</td>
+                <td>${p.aed || 0}%</td>
+                <td>${p.homecare || 0}%</td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    window.showAddUser = () => document.getElementById('add-user-form').style.display = 'block';
+    window.hideAddUser = () => document.getElementById('add-user-form').style.display = 'none';
+
+    window.createUser = async () => {
+      const msg = document.getElementById('create-msg');
+      msg.textContent = '⚠️ 請用 Firebase Console → Authentication → Add user 手動新增用戶，或讓用戶自行用 Google 登入。';
+      msg.style.color = '#856404';
+    };
+
+    // ===== 閃卡管理 =====
+    async function loadCards() {
+      const snap = await getDocs(collection(db, 'flashcards'));
+      const list = document.getElementById('cards-list');
+      if (snap.empty) {
+        list.innerHTML = '<p style="color:#888;text-align:center;padding:2rem">暫無閃卡，請新增</p>';
+        return;
+      }
+      list.innerHTML = `
+        <table>
+          <thead><tr><th>詞彙</th><th>解釋</th><th>分類</th><th>操作</th></tr></thead>
+          <tbody>
+            ${snap.docs.map(d => {
+              const data = d.data();
+              return `<tr>
+                <td>${data.term}</td>
+                <td style="font-size:0.85rem;color:#666">${data.definition}</td>
+                <td>${data.category || '-'}</td>
+                <td><button onclick="deleteCard('${d.id}')" class="btn-delete">刪除</button></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    window.showAddCard = () => document.getElementById('add-card-form').style.display = 'block';
+    window.hideAddCard = () => document.getElementById('add-card-form').style.display = 'none';
+
+    window.addCard = async () => {
+      const term = document.getElementById('new-term').value.trim();
+      const definition = document.getElementById('new-definition').value.trim();
+      const category = document.getElementById('new-category').value;
+      if (!term || !definition) return alert('請填寫詞彙同解釋');
+      await addDoc(collection(db, 'flashcards'), { term, definition, category });
+      hideAddCard();
+      loadCards();
+    };
+
+    window.deleteCard = async (id) => {
+      if (!confirm('確定刪除此閃卡？')) return;
+      await deleteDoc(doc(db, 'flashcards', id));
+      loadCards();
+    };
+
+    // ===== 測驗管理 =====
+    async function loadQuizQuestions() {
+      const snap = await getDocs(collection(db, 'quiz'));
+      const list = document.getElementById('quiz-list');
+      if (snap.empty) {
+        list.innerHTML = '<p style="color:#888;text-align:center;padding:2rem">暫無題目，請新增</p>';
+        return;
+      }
+      list.innerHTML = `
+        <table>
+          <thead><tr><th>題目</th><th>正確答案</th><th>操作</th></tr></thead>
+          <tbody>
+            ${snap.docs.map(d => {
+              const data = d.data();
+              return `<tr>
+                <td style="font-size:0.9rem">${data.question}</td>
+                <td style="font-size:0.85rem;color:#28a745">${data.options?.[data.answer] || '-'}</td>
+                <td><button onclick="deleteQuiz('${d.id}')" class="btn-delete">刪除</button></td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>`;
+    }
+
+    window.showAddQuiz = () => document.getElementById('add-quiz-form').style.display = 'block';
+    window.hideAddQuiz = () => document.getElementById('add-quiz-form').style.display = 'none';
+
+    window.addQuizQuestion = async () => {
+      const question = document.getElementById('new-question').value.trim();
+      const options = [
+        document.getElementById('opt-a').value.trim(),
+        document.getElementById('opt-b').value.trim(),
+        document.getElementById('opt-c').value.trim(),
+        document.getElementById('opt-d').value.trim()
+      ];
+      const answer = parseInt(document.getElementById('correct-answer').value);
+      const explanation = document.getElementById('new-explanation').value.trim();
+      if (!question || options.some(o => !o)) return alert('請填寫所有欄位');
+      await addDoc(collection(db, 'quiz'), { question, options, answer, explanation });
+      hideAddQuiz();
+      loadQuizQuestions();
+    };
+
+    window.deleteQuiz = async (id) => {
+      if (!confirm('確定刪除此題目？')) return;
+      await deleteDoc(doc(db, 'quiz', id));
+      loadQuizQuestions();
+    };
+  </script>
+</body>
+</html>
